@@ -659,3 +659,8 @@ text-decoration: none;
     background: var(--accent-color);
     color: var(--primary-color);
 }
+.footer-title {
+    font-size: 2.3rem;
+    color: var(--accent-color);
+    margin-bottom: 25px;
+}

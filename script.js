@@ -150,8 +150,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   cartDropdown.querySelector('.cart-checkout').addEventListener('click', e => {
     e.stopPropagation();
-    if (!cart.length) return alert('Your cart is empty.');
-    alert('Proceeding to checkout... (demo)');
+    if (!cart.length) return alert('Giỏ hàng của bạn đang trống.');
+    alert('Vui lòng liên hệ số điện thoại ☎ 090 399 7814 để đặt hàng. Cảm ơn bạn!');
   });
 
   /* Toast Notifications */
