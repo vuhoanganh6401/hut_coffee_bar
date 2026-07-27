@@ -34,19 +34,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   filterButtons.forEach(btn => {
     btn.addEventListener('click', () => {
-      filterButtons.forEach(b => {
-        b.classList.remove('active');
-        b.setAttribute('aria-selected', 'false');
-      });
-      btn.classList.add('active');
-      btn.setAttribute('aria-selected', 'true');
 
-      const filter = btn.dataset.filter;
-      menuItems.forEach(item => {
-        item.style.display = (filter === 'all' || item.dataset.category === filter) ? 'flex' : 'none';
-      });
+        filterButtons.forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected', 'false');
+        });
+
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+
+        const filter = btn.dataset.filter;
+
+        menuItems.forEach(item => {
+            item.style.display =
+                (filter === 'all' || item.dataset.category === filter)
+                ? 'flex'
+                : 'none';
+        });
     });
-  });
+});
 
   /* Cart State */
   const cart = [];
@@ -57,7 +63,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const cartEmpty = cartDropdown.querySelector('.cart-empty');
   const cartCount = document.querySelector('.cart-count');
 
-  const formatMoney = num => '$' + (Number(num) || 0).toFixed(2);
+ const formatMoney = num =>
+    new Intl.NumberFormat('vi-VN', {
+        style: 'currency',
+        currency: 'VND'
+    }).format(Number(num) || 0);
   const recalcBadge = () => cartCount.textContent = cart.reduce((s, i) => s + i.qty, 0);
 
   const updateCart = () => {
@@ -84,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         li.querySelector('.cart-item-name').addEventListener('click', e => {
           e.stopPropagation();
-          alert(`Order Details:\n\n${item.name}\nUnit: ${formatMoney(item.price)}\nQty: ${item.qty}\nTotal: ${formatMoney(item.price * item.qty)}`);
+          alert(`Order Details:\n\n${item.name}\nUnit: ${formatMoney(item.price)}\nQty: ${item.qty}\nTổng cộng: ${formatMoney(item.price * item.qty)}`);
         });
 
         li.querySelector('.increase').addEventListener('click', e => {
@@ -104,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
     const total = cart.reduce((sum, i) => sum + i.price * i.qty, 0);
-    cartTotal.textContent = `Total: ${formatMoney(total)}`;
+    cartTotal.textContent = `Tổng cộng: ${formatMoney(total)}`;
     recalcBadge();
   };
 
@@ -172,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
       existing ? existing.qty++ : cart.push({ name, price, img, qty: 1 });
 
       updateCart();
-      showToast(`${name} added to cart ✔`);
+      showToast(`${name} đã được thêm vào giỏ hàng ✔`);
       openCart();
     });
   });
